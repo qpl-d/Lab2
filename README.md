@@ -101,40 +101,7 @@ graph TD
 ### 5. Программа
 
 ```java
-import java.io.PrintStream;
-import java.util.Scanner;
 
-public class Main {
-    // Объявляем объект класса Scanner для ввода данных
-    public static Scanner in = new Scanner(System.in);
-    // Объявляем объект класса PrintStream для вывода данных
-    public static PrintStream out = System.out;
-
-    public static void main(String[] args) {
-        // Считывание двух вещественных чисел x и y из консоли
-        double x = in.nextDouble();
-        double y = in.nextDouble();
-
-        // Определение максимального числа
-        if (x >= y) {
-            // Если x положительное, выводим x, иначе выводим -x,
-            // чтобы на выходе было его абсолютное значение
-            if (x >= 0) {
-                out.println(x);
-            } else {
-                out.println(-x);
-            }
-        } else {
-            // Если x положительное, выводим y, иначе выводим -y,
-            // чтобы на выходе было его абсолютное значение
-            if (y >= 0) {
-                out.println(y);
-            } else {
-                out.println(-y);
-            }
-        }
-    }
-}
 ```
 
 ### 6. Анализ правильности решения
