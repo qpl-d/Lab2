@@ -56,31 +56,110 @@
 #### Алгоритм выполнения программы:
 
 1. **Ввод данных:**  
-   Программа считывает натуральное число `N`.
+   Программа считывает натуральное число `n`, затем `n` натуральных чисел и заполняет массив.
 
 2. **Определение простых и составных чисел**  
    Программа проверяет каждый элемент массива на простоту, затем добавляет простые и составные числа в соответствующие массивы `prim` и `comp`.
 
-3. **Сортировка массива**
+3. **Сортировка массивов**
    Программа сортирует массивы `prim` и `comp` по возрастанию и убыванию соответственно, после чего объединяет отсортированные массивы в один.
-    
+   
+4. **Объединение массивов**
+   Программа объединяет массивы `prim` и `comp` в массив `sortedArray`.
 
-5. **Подсчет простых чисел**  
-   Программа записывает размер массива - `prim` количество простых чисел.
+5. **Вывод количества простых чисел**  
+   Программа выводит primCount.
 
 6. **Замена чисел на слова**  
-   Программа переносит элементы отсортированного массива в новый массив `String[]`.
+   Программа заменяет элементы массива `sortedArray` на слова `Простое` или `Составное` и выводит получившийся массив.
 
 7. **Замена чисел на сумму их цифр**  
-   Программа считает сумму цифр для каждого числа в массиве.
-
-5. **Вывод результатов**
-   Программа выводит количество простых чисел, замененные на слова элементы массива и суммы цифр каждого элемента массива.
+   Программа заменяет элементы массива `sortedArray` на сумму их цифр и выводит получившийся массив.
    
 #### Блок-схема
 
 ```mermaid
-
+graph TD
+    A[Начало] --> B["int n = in.nextInt()"]
+    B --> C["int[] array = new int[n]"]
+    C --> C1["for (int i = 0; i < n; i++)"]
+    C1 --> C2["array[i] = in.nextInt()"]
+    C1 --> C3{ }
+    C2 --> C3
+    C3 --> D["int[] prim = new int[n]"]
+    D --> D1["int[] comp = new int[n]"]
+    D1 --> D2["int primCount = 0"]
+    D2 --> D3["int compCount = 0"]
+    D3 --> F["for (int num = 0; num < array.length; num++)"]
+    F --> G[boolean isPrime = true]
+    G --> H{"array[num] < 2"}
+    H -- Да --> I[isPrime = false]
+    H -- Нет --> I1["for (int i = 2; i < array[num]; i++)"]
+    I1 --> J{"array[num] % i == 0"}
+    J -- Да --> J1[isPrime = false]
+    J1 --> J2[break]
+    K -- Да --> K1["prim[primCount] = array[num]"]
+    K -- Нет --> K2["comp[compCount] = array[num]"]
+    I --> K{isPrime}
+    J2 --> K
+    K1 --> L{ }
+    K2 --> L{ }
+    L --> M["for (int i = 0; i < primCount - 1; i++)"]
+    M --> O["for (int j = i + 1; j < primCount; j++)"]
+    O --> P{"prim[i] > prim[j]"}
+    P -- Да --> P1["int temp = prim[i]"]
+    P -- Нет --> M
+    P1 --> P2["prim[i] = prim[j]"]
+    P2 --> P3["prim[j] = temp"]
+    M --> M1{ }
+    P3 --> M1
+    M1 --> N["for (int i = 0; i < compCount - 1; i++)"]
+    N --> N1["for (int j = i + 1; j < compCount; j++)"]
+    N1 --> N2{"comp[i] < comp[j]"}
+    N2 -- Да --> N3["int temp = comp[i]"]
+    N3 --> N4["comp[i] = comp[j]"]
+    N4 --> N5["comp[j] = temp"]
+    N --> R{ }
+    N5 --> R
+    N2 -- Нет --> N
+    R --> S["int[] sortedArray = new int[n]"]
+    S --> S1["int index = 0"]
+    S1 --> T["for (int i = 0; i < primCount; i++)"]
+    T --> T1["sortedArray[index] = prim[i]"]
+    T1 --> T2["index++"]
+    T --> U{ }
+    T2 --> U
+    U --> U1["for (int i = 0; i < compCount; i++)"]
+    U1 --> U2["sortedArray[index] = comp[i]"]
+    U2 --> U3["index++"]
+    U1 --> V
+    U3 --> V{ }
+    V --> W[/"Вывод: primCount"/]
+    W --> X["for (int num = 0; num < sortedArray.length; num++)"]
+    X --> X1["boolean isPrime = true"]
+    X1 --> X2{"sortedArray[num] < 2"}
+    X2 -- Да --> X3["isPrime = false"]
+    X2 -- Нет --> X4["for (int i = 2; i < sortedArray[num]; i++)"]
+    X4 --> X5{"sortedArray[num] % i == 0"}
+    X5 -- Да --> X6["isPrime = false"]
+    X7 --> X8{"isPrime"}
+    X6 --> X7["break"]
+    X3 --> X8
+    X8 -- Да --> X9[/"Вывод: Простое"/]
+    X8 -- Нет --> X10[/"Вывод: Составное"/]
+    X9 --> X11{ }
+    X10 --> X11
+    X11 --> Y["for (int num = 0; num < sortedArray.length; num++)"]
+    Y --> Y1["int sum = 0"]
+    Y1 --> Y2["int temp = sortedArray[num]"]
+    Y2 --> Y3{"while (temp != 0)"}
+    Y3 -- false --> Y6[/"Вывод: sum"/]
+    Y3 -- true --> Y4["sum += temp % 10"]
+    Y4 --> Y5["temp /= 10"]
+    Y5 --> Y3
+    Y6 --> Z{ }
+    Y5 --> Z
+    Z --> Z1[Конец]
 ```
 
 ### 5. Программа
