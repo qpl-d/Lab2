@@ -58,22 +58,22 @@
 1. **Ввод данных:**  
    Программа считывает натуральное число `n`, затем `n` натуральных чисел и заполняет массив.
 
-2. **Перемещение простых чисел в начало массива**  
+2. **Перемещение простых чисел в начало массива:**  
    Программа проверяет каждое число массива на его простоту. Если число простое, оно перемещается в начало массива.
 
-3. **Сортировка простых чисел по возрастанию**
+3. **Сортировка простых чисел по возрастанию:**
    В полученном массиве простые числа сортируются по возрастанию.
    
-4. **Сортировка составных чисел по убыванию**
+4. **Сортировка составных чисел по убыванию:**
    После сортировки простых чисел, программа переходит к составным и сортирует их по убыванию.
 
-5. **Вывод количества простых чисел**  
+5. **Вывод количества простых чисел:**  
    Простые числа были подсчитаны программой при выполнении пункта 2, поэтому остается просто их вывести.
 
-6. **Замена чисел на слова**  
+6. **Замена чисел на слова:**  
    Каждый элемент массива проверяется на простоту, после чего заменяется словом `Простое` или `Составное` и выводится.
 
-7. **Замена чисел на сумму их цифр**  
+7. **Замена чисел на сумму их цифр:**  
    Для каждого из элементов массива находится сумма его цифр, затем каждый элемент заменяется на сумму его цифр, после чего выводиться получившийся массив.
    
 #### Блок-схема
@@ -86,200 +86,66 @@ graph TD
     C1 --> C2["array[i] = in.nextInt()"]
     C1 --> C3{ }
     C2 --> C3
-    C3 --> D["int[] prim = new int[n]"]
-    D --> D1["int[] comp = new int[n]"]
-    D1 --> D2["int primCount = 0"]
-    D2 --> D3["int compCount = 0"]
-    D3 --> F["for (int num = 0; num < array.length; num++)"]
-    F --> G[boolean isPrime = true]
-    G --> H{"array[num] < 2"}
-    H -- Да --> I[isPrime = false]
-    H -- Нет --> I1["for (int i = 2; i < array[num]; i++)"]
-    I1 --> J{"array[num] % i == 0"}
-    J -- Да --> J1[isPrime = false]
-    J1 --> J2[break]
-    K -- Да --> K1["prim[primCount] = array[num]"]
-    K -- Нет --> K2["comp[compCount] = array[num]"]
-    I --> K{isPrime}
-    J2 --> K
-    K1 --> L{ }
-    K2 --> L{ }
-    L --> M["for (int i = 0; i < primCount - 1; i++)"]
-    M --> O["for (int j = i + 1; j < primCount; j++)"]
-    O --> P{"prim[i] > prim[j]"}
-    P -- Да --> P1["int temp = prim[i]"]
-    P -- Нет --> M
-    P1 --> P2["prim[i] = prim[j]"]
-    P2 --> P3["prim[j] = temp"]
-    M --> M1{ }
-    P3 --> M1
-    M1 --> N["for (int i = 0; i < compCount - 1; i++)"]
-    N --> N1["for (int j = i + 1; j < compCount; j++)"]
-    N1 --> N2{"comp[i] < comp[j]"}
-    N2 -- Да --> N3["int temp = comp[i]"]
-    N3 --> N4["comp[i] = comp[j]"]
-    N4 --> N5["comp[j] = temp"]
-    N --> R{ }
-    N5 --> R
-    N2 -- Нет --> N
-    R --> S["int[] sortedArray = new int[n]"]
-    S --> S1["int index = 0"]
-    S1 --> T["for (int i = 0; i < primCount; i++)"]
-    T --> T1["sortedArray[index] = prim[i]"]
-    T1 --> T2["index++"]
-    T --> U{ }
-    T2 --> U
-    U --> U1["for (int i = 0; i < compCount; i++)"]
-    U1 --> U2["sortedArray[index] = comp[i]"]
-    U2 --> U3["index++"]
-    U1 --> V
-    U3 --> V{ }
-    V --> W[/"Вывод: primCount"/]
-    W --> X["for (int num = 0; num < sortedArray.length; num++)"]
-    X --> X1["boolean isPrime = true"]
-    X1 --> X2{"sortedArray[num] < 2"}
-    X2 -- Да --> X3["isPrime = false"]
-    X2 -- Нет --> X4["for (int i = 2; i < sortedArray[num]; i++)"]
-    X4 --> X5{"sortedArray[num] % i == 0"}
-    X5 -- Да --> X6["isPrime = false"]
-    X7 --> X8{"isPrime"}
-    X6 --> X7["break"]
-    X3 --> X8
-    X8 -- Да --> X9[/"Вывод: Простое"/]
-    X8 -- Нет --> X10[/"Вывод: Составное"/]
-    X9 --> X11{ }
-    X10 --> X11
-    X11 --> Y["for (int num = 0; num < sortedArray.length; num++)"]
-    Y --> Y1["int sum = 0"]
-    Y1 --> Y2["int temp = sortedArray[num]"]
-    Y2 --> Y3{"while (temp != 0)"}
-    Y3 -- false --> Y6[/"Вывод: sum"/]
-    Y3 -- true --> Y4["sum += temp % 10"]
-    Y4 --> Y5["temp /= 10"]
-    Y5 --> Y3
-    Y6 --> Z{ }
-    Y5 --> Z
-    Z --> Z1[Конец]
+    C3 --> D["int primeCount = 0"]
+    D --> D1["for (int i = 0; i < array.length; i++)"]
+    D1 --> D2["boolean isPrime = true"]
+    D2 --> D3{"if (array[i] <= 1)"}
+    D3 -- Да --> D4["isPrime = false"]
+    D3 -- Нет --> D5["for (int j = 2; j < array[i]; j++)"]
+    D5 --> D6{"if (array[i] % j == 0)"}
+    D6 -- Да --> D7["isPrime = false"]
+    D7 --> D8["break"]
+    D6 -- Нет --> D5
+    D8 --> E{"if (isPrime)"}
+    D4 --> E
+    E -- Да --> E1["int temp = array[primeCount]"]
+    E1 --> E2["array[primeCount] = array[i]"]
+    E2 --> E3["array[i] = temp"]
+    E3 --> E4["primeCount++"]
+    E4 --> F{ }
+    E -- Нет --> F
+    F --> F1["for (int i = 0; i < primeCount - 1; i++)"]
+    F1 --> F2["for (int j = 0; j < primeCount - i - 1; j++)"]
+    F2 --> F3{"if (array[j] > array[j + 1])"}
+    F3 -- Да --> F4["int temp = array[j]"]
+    F4 --> F5["array[j] = array[j + 1]"]
+    F5 --> F6["array[j + 1] = temp"]
+    F6 --> F7{ }
+    F3 -- Нет --> F7
+    F7 --> G[/Вывод: primeCount/]
+    G --> H["for (int i = 0; i < array.length; i++)"]
+    H --> H1["boolean isPrime = true"]
+    H1 --> H2{"if (array[i] <= 1)"}
+    H2 -- Да --> H3["isPrime = false"]
+    H2 -- Нет --> H4["for (int j = 2; j < array[i]; j++)"]
+    H4 --> H5{"if (array[i] % j == 0)"}
+    H5 -- Да --> H6["isPrime = false"]
+    H6 --> H7["break"]
+    H5 -- Нет --> H4
+    H7 --> H8{"if (isPrime)"}
+    H3 --> H8
+    H8 -- Да --> H9[/"Вывод: Простое"/]
+    H8 -- Нет --> H10[/"Вывод: Составное"/]
+    H9 --> H11{ }
+    H10 --> H11
+    H11 --> K["for (int i = 0; i < array.length; i++)"]
+    K --> K1["int sum = 0"]
+    K1 --> K2{ }
+    K2 --> K3[/"while (array[i] > 0)"/]
+    K3 -- Да --> K4["sum += array[i] % 10"]
+    K4 --> K5["array[i] /= 10"]
+    K5 --> K2
+    K3 -- Нет --> K6["array[i] = sum"]
+    K6 --> K7["for (int i = 0; i < array.length; i++)"]
+    K7 --> K8["out.print(array[i] + ' ')"]
+    K8 --> K9[/"Вывод массива"/]
+    K9 --> K10[Конец]
 ```
 
 ### 5. Программа
 
 ```java
-import java.util.Scanner;
-import java.io.PrintStream;
-public class Main {
-    public static PrintStream out = System.out;
-    public static Scanner in = new Scanner(System.in);
-    public static void main(String[] args) {
-        
-        // считывание числа n и заполнение массива
-        int n = in.nextInt();
-        int[] array = new int[n];
-        for (int i = 0; i < n; i++) {
-            array[i] = in.nextInt();
-        }
 
-        // разделение чисел на простые и составные
-        int[] prim = new int[n];
-        int[] comp = new int[n];
-        int primCount = 0;
-        int compCount = 0;
-
-        for (int num = 0; num < array.length; num++) {
-            boolean isPrime = true;
-            if (array[num] < 2) {
-                isPrime = false;
-            } else {
-                for (int i = 2; i < array[num]; i++) {
-                    if (array[num] % i == 0) {
-                        isPrime = false;
-                        break;
-                    }
-                }
-            }
-
-            if (isPrime) {
-                prim[primCount] = array[num];
-                primCount++;
-            } else {
-                comp[compCount] = array[num];
-                compCount++;
-            }
-        }
-
-        // сортировка простых чисел по возрастанию
-        for (int i = 0; i < primCount - 1; i++) {
-            for (int j = i + 1; j < primCount; j++) {
-                if (prim[i] > prim[j]) {
-                    int temp = prim[i];
-                    prim[i] = prim[j];
-                    prim[j] = temp;
-                }
-            }
-        }
-
-        // сортировка составных чисел по убыванию
-        for (int i = 0; i < compCount - 1; i++) {
-            for (int j = i + 1; j < compCount; j++) {
-                if (comp[i] < comp[j]) {
-                    int temp = comp[i];
-                    comp[i] = comp[j];
-                    comp[j] = temp;
-                }
-            }
-        }
-
-        // объединение массивов
-        int[] sortedArray = new int[n];
-        int index = 0;
-
-        for (int i = 0; i < primCount; i++) {
-            sortedArray[index] = prim[i];
-            index++;
-        }
-        for (int i = 0; i < compCount; i++) {
-            sortedArray[index] = comp[i];
-            index++;
-        }
-
-        // вывод количества простых чисел
-        System.out.println("Количество простых чисел: " + primCount);
-
-        // вывод массива с заменой на слова
-        System.out.print("Массив с заменой на слова: ");
-        for (int num = 0; num < sortedArray.length; num++) {
-            boolean isPrime = true;
-            if (sortedArray[num] < 2) {
-                isPrime = false;
-            } else {
-                for (int i = 2; i < sortedArray[num]; i++) {
-                    if (sortedArray[num] % i == 0) {
-                        isPrime = false;
-                        break;
-                    }
-                }
-            }
-            if (isPrime) {
-                System.out.print("Простое ");
-            } else {
-                System.out.print("Составное ");
-            }
-        }
-        System.out.println();
-
-        // замена чисел в массиве на сумму их цифр и вывод
-        System.out.print("Массив с суммой цифр: ");
-        for (int num = 0; num < sortedArray.length; num++) {
-            int sum = 0;
-            int temp = sortedArray[num];
-            while (temp != 0) {
-                sum += temp % 10;
-                temp /= 10;
-            }
-            System.out.print(sum + " ");
-        }
-    }
-}
 ```
 
 ### 6. Анализ правильности решения
